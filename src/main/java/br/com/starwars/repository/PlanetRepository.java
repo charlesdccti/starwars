@@ -10,6 +10,8 @@ import br.com.starwars.model.Planet;
 @Repository
 public interface PlanetRepository extends MongoRepository<Planet, Long>{
 	
+	Optional<Planet> findById(String id);
 	Optional<Planet> findByName(String name);
-	void deleteByName(String planetName);
+	void deleteById(String id);
+	void deleteByName(String name);
 }

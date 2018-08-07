@@ -3,6 +3,7 @@ package br.com.starwars.model;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,7 +19,7 @@ public class Planet{
 	private String climate;
 	@NotNull
 	private String terrain;
-
+	@Transient
 	private Integer apparitionsCount;
 	
 	public String getId() {

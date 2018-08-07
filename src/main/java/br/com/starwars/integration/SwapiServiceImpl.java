@@ -2,6 +2,7 @@ package br.com.starwars.integration;
 
 import static br.com.starwars.configuration.CacheConfiguration.CACHE_PLANETS;
 import static java.util.Arrays.asList;
+import static org.springframework.http.HttpHeaders.USER_AGENT;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -30,7 +31,7 @@ public class SwapiServiceImpl implements SwapiService{
 		
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(asList(APPLICATION_JSON));
-		headers.add("user-agent", "teste");
+		headers.put(USER_AGENT, asList("whatever"));
         ResponseEntity<PlanetSwapi> response = restTemplate.exchange(urlBuilder.swapiUrlPlanets(name), GET, new HttpEntity<String>(headers), PlanetSwapi.class);
 
         return response.getBody();

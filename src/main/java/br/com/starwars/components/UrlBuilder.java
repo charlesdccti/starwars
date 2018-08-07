@@ -2,6 +2,8 @@ package br.com.starwars.components;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +19,7 @@ public class UrlBuilder {
 	@Value("${swapi.url.planets}")
 	private String url;
 	
-	public String swapiUrlPlanets(String name) {
-		return fromHttpUrl(url).queryParam(PARAM_SEARCH, name).toUriString();
+	public URI swapiUrlPlanets(String name) {
+		return fromHttpUrl(url).queryParam(PARAM_SEARCH, name).build().toUri();
 	}
 }

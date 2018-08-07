@@ -1,7 +1,6 @@
 package br.com.starwars.model;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PlanetSwapi {
 

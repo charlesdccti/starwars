@@ -9,7 +9,7 @@ public interface PlanetBusiness {
 	Planet create(Planet planet);
 	List<Planet> findAll();
 	Planet findByName(String name);
-	Planet findById(Long id);
+	Planet findById(String id);
 	void deleteByName(String name);
-	void deleteById(Long id);
+	void deleteById(String id);
 }

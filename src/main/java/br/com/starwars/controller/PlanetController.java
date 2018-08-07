@@ -64,7 +64,7 @@ public class PlanetController {
 	}
 	
 	@GetMapping(PARAM_ID)
-	public ResponseEntity<Planet> findById(@PathVariable Long id){
+	public ResponseEntity<Planet> findById(@PathVariable String id){
 		
 		LOGGER.info("Accessing endpoint with method GET with following parameter: {}", id);
 		
@@ -84,7 +84,7 @@ public class PlanetController {
 	}
 	
 	@DeleteMapping(PARAM_ID)
-	public ResponseEntity<Planet> deleteById(@PathVariable Long id){
+	public ResponseEntity<Planet> deleteById(@PathVariable String id){
 		
 		LOGGER.info("Accessing endpoint with method DELETE with following parameter: {}", id);
 		

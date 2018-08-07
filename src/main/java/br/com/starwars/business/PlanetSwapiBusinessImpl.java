@@ -23,7 +23,7 @@ public class PlanetSwapiBusinessImpl implements PlanetSwapiBusiness{
 		
 		if(planet.getResults().size() > 0) {
 			Result result = planet.getResults().stream()
-					.filter(r -> r.getName().equalsIgnoreCase(name)).findFirst()
+					.filter(r -> r.getName().equals(name)).findFirst()
 					.orElseThrow(() -> new PlanetSwapiNotFoundException(PLANET_SWAPI_NOT_FOUND));
 			return result.getFilms().size();
 		}
