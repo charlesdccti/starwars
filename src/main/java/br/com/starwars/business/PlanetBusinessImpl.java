@@ -2,6 +2,7 @@ package br.com.starwars.business;
 
 import static br.com.starwars.components.Message.PLANET_ALREADY_EXISTS;
 import static br.com.starwars.components.Message.PLANET_NOT_FOUND;
+import static br.com.starwars.components.Validate.validate;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
@@ -25,10 +26,11 @@ public class PlanetBusinessImpl implements PlanetBusiness{
 	
 	@Override
 	public Planet create(Planet planet) {
+		validate(planet);
 		Optional<Planet> p = repository.findByName(planet.getName());
 		if(p.isPresent()) throw new PlanetAlreadyExistsException(PLANET_ALREADY_EXISTS);
-		planet = repository.insert(planet);
 		planet.setApparitionsCount(business.getApparitionsCount(planet.getName()));
+		planet = repository.insert(planet);
 		return planet;
 	}
 

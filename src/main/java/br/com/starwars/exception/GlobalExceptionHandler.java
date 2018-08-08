@@ -2,6 +2,8 @@ package br.com.starwars.exception;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.ResponseEntity.status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +22,7 @@ public class GlobalExceptionHandler {
     	
     	LOGGER.error(e.getMessage());
     	
-        return ResponseEntity.status(CONFLICT).body(e.getMessage());
+        return status(CONFLICT).body(e.getMessage());
     }
 	
     @ExceptionHandler(value = { PlanetNotFoundException.class, PlanetSwapiNotFoundException.class })
@@ -28,6 +30,14 @@ public class GlobalExceptionHandler {
     	
     	LOGGER.error(e.getMessage());    	
     	
-        return ResponseEntity.status(NOT_FOUND).body(e.getMessage());
+        return status(NOT_FOUND).body(e.getMessage());
+    }
+    
+    @ExceptionHandler(value = { FieldRequiredException.class })
+    public ResponseEntity<?> genericBadRequest(Exception e, WebRequest req) {
+    	
+    	LOGGER.error(e.getMessage());    	
+    	
+        return badRequest().body(e.getMessage());
     }
 }

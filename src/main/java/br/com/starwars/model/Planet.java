@@ -1,7 +1,5 @@
 package br.com.starwars.model;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -13,11 +11,8 @@ public class Planet{
 	@Id
 	private String id;
 	@Indexed(unique=true)
-	@NotNull
 	private String name;
-	@NotNull
 	private String climate;
-	@NotNull
 	private String terrain;
 	@Transient
 	private Integer apparitionsCount;

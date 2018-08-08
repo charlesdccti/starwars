@@ -5,8 +5,10 @@ import static br.com.starwars.components.UrlBuilder.PARAM_NAME;
 import static br.com.starwars.components.UrlBuilder.REQUEST_PATH_NAME;
 import static br.com.starwars.components.UrlBuilder.REQUEST_PATH_PLANETS;
 import static org.slf4j.LoggerFactory.getLogger;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class PlanetController {
 		
 		Planet planet = business.create(body);
 		
-		return ok().body(planet);
+		return status(CREATED).body(planet);
 	}
 	
 	@GetMapping
@@ -74,7 +76,7 @@ public class PlanetController {
 	}
 	
 	@DeleteMapping(REQUEST_PATH_NAME + PARAM_NAME)
-	public ResponseEntity<Planet> deleteByName(@PathVariable String name){
+	public ResponseEntity<?> deleteByName(@PathVariable String name){
 		
 		LOGGER.info("Accessing endpoint with method DELETE with following parameter: {}", name);
 		
@@ -84,7 +86,7 @@ public class PlanetController {
 	}
 	
 	@DeleteMapping(PARAM_ID)
-	public ResponseEntity<Planet> deleteById(@PathVariable String id){
+	public ResponseEntity<?> deleteById(@PathVariable String id){
 		
 		LOGGER.info("Accessing endpoint with method DELETE with following parameter: {}", id);
 		
