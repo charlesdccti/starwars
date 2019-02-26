@@ -1,4 +1,4 @@
-# Desafio B2W.
+# Star Wars.
 
 O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os dados no MongoDB.
 
