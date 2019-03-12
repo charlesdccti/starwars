@@ -6,11 +6,11 @@ import static br.com.starwars.components.Message.PLANET_TERRAIN_EMPTY;
 import static org.apache.logging.log4j.util.Strings.isBlank;
 
 import br.com.starwars.exception.FieldRequiredException;
-import br.com.starwars.model.Planet;
+import br.com.starwars.document.PlanetDocument;
 
 public class Validate {
 
-	public static void validate(Planet planet) {
+	public static void validate(PlanetDocument planet) {
 		
 		if(isBlank(planet.getName())) throw new FieldRequiredException(PLANET_NAME_EMPTY);
 		if(isBlank(planet.getClimate())) throw new FieldRequiredException(PLANET_CLIMATE_EMPTY);

@@ -12,7 +12,9 @@ import static org.springframework.http.ResponseEntity.status;
 
 import java.util.List;
 
-import org.slf4j.Logger;
+import br.com.starwars.business.PlanetBusiness;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,62 +25,60 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.starwars.business.PlanetBusiness;
-import br.com.starwars.model.Planet;
+import br.com.starwars.document.PlanetDocument;
 
 @RestController
 @RequestMapping(REQUEST_PATH_PLANETS)
+@Slf4j
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanetController {
 
-	private static final Logger LOGGER = getLogger(PlanetController.class);
-	
-	@Autowired
 	private PlanetBusiness business;
 	
 	@PostMapping
-	public ResponseEntity<Planet> create(@RequestBody Planet body){
+	public ResponseEntity<PlanetDocument> create(@RequestBody PlanetDocument body){
 		
-		LOGGER.info("Accessing endpoint with method POST with the following parameters: {}", body);
+		log.info("Accessing endpoint with method POST with the following parameters: {}", body);
 		
-		Planet planet = business.create(body);
+		PlanetDocument planet = business.create(body);
 		
 		return status(CREATED).body(planet);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Planet>> findAll(){
+	public ResponseEntity<List<PlanetDocument>> findAll(){
+
+		log.info("Accessing endpoint with method GET without parameters.");
 		
-		LOGGER.info("Accessing endpoint with method GET without parameters.");
-		
-		List<Planet> planets = business.findAll();
+		List<PlanetDocument> planets = business.findAll();
 		
 		return ok().body(planets);
 	}
 	
 	@GetMapping(REQUEST_PATH_NAME + PARAM_NAME)
-	public ResponseEntity<Planet> findByName(@PathVariable String name){
+	public ResponseEntity<PlanetDocument> findByName(@PathVariable String name){
+
+		log.info("Accessing endpoint with method GET with following parameter: {}", name);
 		
-		LOGGER.info("Accessing endpoint with method GET with following parameter: {}", name);
-		
-		Planet planet = business.findByName(name);
+		PlanetDocument planet = business.findByName(name);
 		
 		return ok().body(planet);
 	}
 	
 	@GetMapping(PARAM_ID)
-	public ResponseEntity<Planet> findById(@PathVariable String id){
+	public ResponseEntity<PlanetDocument> findById(@PathVariable String id){
+
+		log.info("Accessing endpoint with method GET with following parameter: {}", id);
 		
-		LOGGER.info("Accessing endpoint with method GET with following parameter: {}", id);
-		
-		Planet planet = business.findById(id);
+		PlanetDocument planet = business.findById(id);
 		
 		return ok().body(planet);
 	}
 	
 	@DeleteMapping(REQUEST_PATH_NAME + PARAM_NAME)
 	public ResponseEntity<?> deleteByName(@PathVariable String name){
-		
-		LOGGER.info("Accessing endpoint with method DELETE with following parameter: {}", name);
+
+		log.info("Accessing endpoint with method DELETE with following parameter: {}", name);
 		
 		business.deleteByName(name);
 		
@@ -87,8 +87,8 @@ public class PlanetController {
 	
 	@DeleteMapping(PARAM_ID)
 	public ResponseEntity<?> deleteById(@PathVariable String id){
-		
-		LOGGER.info("Accessing endpoint with method DELETE with following parameter: {}", id);
+
+		log.info("Accessing endpoint with method DELETE with following parameter: {}", id);
 		
 		business.deleteById(id);
 		

@@ -3,15 +3,13 @@ spring:
             name: starwars
       main:
             banner-mode: "off"
-      data:
-            mongodb:
-                  host: localhost
-                  port: 27017
-                  database: starwars
 
-swapi: 
-      url: 
+mongo:
+      host: localhost
+      name: starwars
+
+swapi:
+      url:
             planets: https://swapi.co/api/planets
-
 
 management.endpoints.web.exposure.include: "*"

@@ -9,19 +9,17 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 - Ehcache
 - Junit 4.
 - Mockito.
-- Base de dados MongoDB.
+- Base de dados MongoDB embedded.
 
 ## Para rodar o projeto, execute os passos que estão descritos abaixo.
 
-**Observação:** Antes de rodar a aplicação é necessário ter o MongoDB instalado na máquina e ouvindo a porta 27017.
-
 - Importar o projeto na sua IDE como um projeto maven.
 - Baixar todas as dependências que estão configuradas no pom.
-- Executar o main da classe br.com.starwars.MainApplication
+- Executar o main da classe br.com.starwars.StarWarsApplication
 
 ## Endpoints disponíveis.
 
-### Método POST: http://localhost:8080/planets
+### Método POST: http://localhost:8080/planet
 
 **JSON:**
 
@@ -50,7 +48,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 }
 ```
 
-### Método GET: http://localhost:8080/planets
+### Método GET: http://localhost:8080/planet
 
 **Status:** 200 -> Retorna um array com ou sem planetas.
 
@@ -75,7 +73,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 ]
 ```
 
-### Método GET: http://localhost:8080/planets/name/{name}
+### Método GET: http://localhost:8080/planet/name/{name}
 
 **Status:** 200 -> Encontrado com sucesso. e 404 -> Planeta não encontrado na base de dados.
 
@@ -92,7 +90,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 }
 ```
 
-### Método GET: http://localhost:8080/planets/{id}
+### Método GET: http://localhost:8080/planet/{id}
 
 **Status:** 200 -> Encontrado com sucesso. e 404 -> Planeta não encontrado na base de dados.
 
@@ -109,11 +107,11 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 }
 ```
 
-### Método DELETE: http://localhost:8080/planets/name/{name}
+### Método DELETE: http://localhost:8080/planet/name/{name}
 
 **Status:** 204 -> Deletado com sucesso. e 404 -> Planeta não encontrado na base de dados.
 
-### Método DELETE: http://localhost:8080/planets/{id}
+### Método DELETE: http://localhost:8080/planet/{id}
 
 **Status:** 204 -> Deletado com sucesso. e 404 -> Planeta não encontrado na base de dados.
 
@@ -121,7 +119,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 
 Para contruir o projeto e executar todos os testes(unitários + integração).
 
-	mvn clean verify
+	mvn clean package
 
 ## Monitoramento
 

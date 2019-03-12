@@ -2,7 +2,10 @@ package br.com.starwars.controller;
 
 import static br.com.starwars.components.UrlBuilder.REQUEST_PATH_NAME;
 import static br.com.starwars.components.UrlBuilder.REQUEST_PATH_PLANETS;
+import static br.com.starwars.support.ScenarioBuilder.generatePlanet;
+import static br.com.starwars.support.ScenarioBuilder.generatePlanetFile;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -13,8 +16,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Collections;
 import java.util.List;
 
+import br.com.starwars.business.PlanetBusiness;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +29,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import br.com.starwars.business.PlanetBusiness;
-import br.com.starwars.model.Planet;
+import br.com.starwars.document.PlanetDocument;
 import br.com.starwars.support.ScenarioBuilder;
 
 @RunWith(SpringRunner.class)
@@ -35,19 +39,17 @@ public class PlanetControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private ScenarioBuilder builder;
     @MockBean
     private PlanetBusiness business;
     
     @Test
     public void methodCreateShouldReturnStatus201() throws Exception{
         
-    	Planet planet = builder.generatePlanet();
+    	PlanetDocument planet = generatePlanet();
     	when(business.create(any())).thenReturn(planet);
-    	
+
     	mockMvc.perform(post(REQUEST_PATH_PLANETS)
-                .content(builder.generatePlanetFile())
+                .content(generatePlanetFile())
                 .contentType(APPLICATION_JSON))
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.name").value(planet.getName()))
@@ -66,7 +68,7 @@ public class PlanetControllerTest {
     @Test
     public void methodFindAllShouldReturnStatus200() throws Exception{
         
-    	List<Planet> planets = asList(builder.generatePlanet());
+    	List<PlanetDocument> planets = singletonList(generatePlanet());
     	when(business.findAll()).thenReturn(planets);
     	
         mockMvc.perform(get(REQUEST_PATH_PLANETS))
@@ -79,7 +81,7 @@ public class PlanetControllerTest {
     @Test
     public void methodFindByNameShouldReturnStatus200() throws Exception{
         
-    	Planet planet = builder.generatePlanet();
+    	PlanetDocument planet = generatePlanet();
     	when(business.findByName(anyString())).thenReturn(planet);
     	
         mockMvc.perform(get(REQUEST_PATH_PLANETS + REQUEST_PATH_NAME + "/Tatooine"))
@@ -92,7 +94,7 @@ public class PlanetControllerTest {
     @Test
     public void methodFindByIdShouldReturnStatus200() throws Exception{
         
-    	Planet planet = builder.generatePlanet();
+    	PlanetDocument planet = generatePlanet();
     	when(business.findById(anyString())).thenReturn(planet);
     	
         mockMvc.perform(get(REQUEST_PATH_PLANETS + "/123"))

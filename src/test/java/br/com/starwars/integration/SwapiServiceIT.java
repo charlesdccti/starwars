@@ -9,12 +9,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.starwars.model.PlanetSwapi;
+import br.com.starwars.dto.PlanetSwapiDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SwapiServiceImplIT {
+public class SwapiServiceIT {
 
 	@Autowired
 	private SwapiService service;
@@ -22,8 +22,8 @@ public class SwapiServiceImplIT {
 	@Test
 	public void methodGetShouldReturnAPlanetSwapi() {
 		
-		PlanetSwapi planet = service.getPlanet("Tatooine");
+		PlanetSwapiDTO planet = service.getPlanet("Tatooine");
 		
-		assertThat(planet.getResults()).hasSize(1).extracting(p -> p.getName()).contains("Tatooine");
+		assertThat(planet.getResults()).hasSize(1).extracting(PlanetSwapiDTO.Result::getName).contains("Tatooine");
 	}
 }
