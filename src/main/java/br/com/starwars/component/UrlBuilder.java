@@ -1,4 +1,4 @@
-package br.com.starwars.components;
+package br.com.starwars.component;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
@@ -12,7 +12,6 @@ public class UrlBuilder {
 
 	public static final String REQUEST_PATH_PLANETS = "/planet";
 	public static final String REQUEST_PATH_NAME = "/name";
-	public static final String PARAM_NAME = "/{name}";
 	public static final String PARAM_ID = "/{id}";
 	private static final String PARAM_SEARCH = "search";
 	

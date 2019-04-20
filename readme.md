@@ -6,7 +6,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 
 - Java 8.
 - Spring Boot, Data, MVC, Cache e Actuator.
-- Ehcache
+- Docker
 - Junit 4.
 - Mockito.
 - Base de dados MongoDB embedded.
@@ -16,6 +16,12 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 - Importar o projeto na sua IDE como um projeto maven.
 - Baixar todas as dependências que estão configuradas no pom.
 - Executar o main da classe br.com.starwars.StarWarsApplication
+
+## Rodando com docker
+
+Para rodar o projeto com docker é necessário estar na pasta raiz do projeto e seguir o passo abaixo.
+
+- ```docker-compose up``` para subir a aplicação.
 
 ## Endpoints disponíveis.
 
@@ -73,7 +79,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 ]
 ```
 
-### Método GET: http://localhost:8080/planet/name/{name}
+### Método GET: http://localhost:8080/planet?name={name}
 
 **Status:** 200 -> Encontrado com sucesso. e 404 -> Planeta não encontrado na base de dados.
 
@@ -107,7 +113,7 @@ O projeto consiste em desenvolver um crud, consumir uma api(swapi) e guardar os 
 }
 ```
 
-### Método DELETE: http://localhost:8080/planet/name/{name}
+### Método DELETE: http://localhost:8080/planet?name={name}
 
 **Status:** 204 -> Deletado com sucesso. e 404 -> Planeta não encontrado na base de dados.
 

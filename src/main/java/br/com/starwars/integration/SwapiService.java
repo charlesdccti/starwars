@@ -1,6 +1,6 @@
 package br.com.starwars.integration;
 
-import br.com.starwars.components.UrlBuilder;
+import br.com.starwars.component.UrlBuilder;
 import br.com.starwars.dto.PlanetSwapiDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class SwapiService {
 	
 	@Cacheable(CACHE_PLANETS)
 	public PlanetSwapiDTO getPlanet(String name) {
-		
+
 		RestTemplate restTemplate = new RestTemplate();
 		
         HttpHeaders headers = new HttpHeaders();

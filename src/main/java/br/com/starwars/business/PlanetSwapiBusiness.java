@@ -1,6 +1,6 @@
 package br.com.starwars.business;
 
-import static br.com.starwars.components.Message.PLANET_SWAPI_NOT_FOUND;
+import static br.com.starwars.component.MessageBuilder.PLANET_SWAPI_NOT_FOUND;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ class PlanetSwapiBusiness {
 	Integer getApparitionsCount(String name) {
 
 		PlanetSwapiDTO planet = service.getPlanet(name);
-		
-		if(planet.getResults().size() > 0) {
+
+		if(!planet.getResults().isEmpty()) {
 			Result result = planet.getResults().stream()
 					.filter(r -> r.getName().equals(name)).findFirst()
 					.orElseThrow(() -> new PlanetSwapiNotFoundException(PLANET_SWAPI_NOT_FOUND));
 			return result.getFilms().size();
 		}
-		
+
 		throw new PlanetSwapiNotFoundException(PLANET_SWAPI_NOT_FOUND);
 	}
 }

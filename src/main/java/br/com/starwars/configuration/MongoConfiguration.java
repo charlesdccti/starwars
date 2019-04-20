@@ -12,11 +12,8 @@ import java.io.IOException;
 @Configuration
 public class MongoConfiguration {
 
-    @Value("${mongo.host}") private String host;
-    @Value("${mongo.name}") private String name;
-
     @Bean
-    public MongoTemplate mongoTemplate() throws IOException {
+    public MongoTemplate mongoTemplate(@Value("${mongo.host}") String host, @Value("${mongo.name}") String name) throws IOException {
 
         EmbeddedMongoFactoryBean mongo = new EmbeddedMongoFactoryBean();
         mongo.setBindIp(host);

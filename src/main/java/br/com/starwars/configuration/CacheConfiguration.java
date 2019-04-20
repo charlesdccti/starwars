@@ -1,11 +1,15 @@
 package br.com.starwars.configuration;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.cache.guava.GuavaCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+
+import static java.util.Collections.singletonList;
+import static java.util.concurrent.TimeUnit.DAYS;
 
 @Configuration
 public class CacheConfiguration {
@@ -14,17 +18,10 @@ public class CacheConfiguration {
 
     @Bean
     public CacheManager cacheManager() {
-
-        return new EhCacheCacheManager(ehCacheCacheManager().getObject());
-    }
-
-    @Bean
-    public EhCacheManagerFactoryBean ehCacheCacheManager() {
-
-        EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
-        cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));
-        cmfb.setShared(true);
-
-        return cmfb;
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        Cache<Object, Object> builderCachePlanets = CacheBuilder.newBuilder().expireAfterWrite(1, DAYS).maximumSize(100).build();
+        GuavaCache cachePlanets = new GuavaCache(CACHE_PLANETS, builderCachePlanets);
+        cacheManager.setCaches(singletonList(cachePlanets));
+        return cacheManager;
     }
 }

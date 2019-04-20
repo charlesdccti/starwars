@@ -8,6 +8,9 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,15 +21,14 @@ import br.com.starwars.integration.SwapiService;
 import br.com.starwars.dto.PlanetSwapiDTO;
 import br.com.starwars.support.ScenarioBuilder;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class PlanetSwapiBusinessTest {
 
-    @Autowired
-    private PlanetSwapiBusiness business;
-    @MockBean
+    @Mock
     private SwapiService service;
-    
+    @InjectMocks
+    private PlanetSwapiBusiness business;
+
     @Test
     public void methodGetShouldReturnAIngeter() {
     	

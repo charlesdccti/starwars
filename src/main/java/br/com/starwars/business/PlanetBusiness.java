@@ -1,23 +1,20 @@
 package br.com.starwars.business;
 
-import static br.com.starwars.components.Message.PLANET_ALREADY_EXISTS;
-import static br.com.starwars.components.Message.PLANET_NOT_FOUND;
-import static br.com.starwars.components.Validate.validate;
-import static java.util.stream.Collectors.toList;
+import br.com.starwars.component.Validate;
+import br.com.starwars.document.PlanetDocument;
+import br.com.starwars.exception.PlanetAlreadyExistsException;
+import br.com.starwars.exception.PlanetNotFoundException;
+import br.com.starwars.repository.PlanetRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
-
-import br.com.starwars.exception.PlanetAlreadyExistsException;
-import br.com.starwars.exception.PlanetNotFoundException;
-import br.com.starwars.document.PlanetDocument;
-import br.com.starwars.repository.PlanetRepository;
+import static br.com.starwars.component.MessageBuilder.PLANET_ALREADY_EXISTS;
+import static br.com.starwars.component.MessageBuilder.PLANET_NOT_FOUND;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -25,14 +22,14 @@ public class PlanetBusiness {
 	
 	private PlanetRepository repository;
 	private PlanetSwapiBusiness business;
-	
+	private Validate validate;
+
 	public PlanetDocument create(PlanetDocument planet) {
-		validate(planet);
+		validate.validator(planet);
 		Optional<PlanetDocument> p = repository.findByName(planet.getName());
 		if(p.isPresent()) throw new PlanetAlreadyExistsException(PLANET_ALREADY_EXISTS);
 		planet.setApparitionsCount(business.getApparitionsCount(planet.getName()));
-		planet = repository.insert(planet);
-		return planet;
+		return repository.insert(planet);
 	}
 
 	public List<PlanetDocument> findAll() {
